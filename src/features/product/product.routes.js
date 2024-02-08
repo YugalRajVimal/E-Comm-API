@@ -10,6 +10,9 @@ const productRouter = express.Router();
 const productController = new ProductController();
 
 //ALl the paths to controller methods after (localhost:8080/api/products)
+
+productRouter.get("/filter", productController.filterProducts);
+
 productRouter.get("/", productController.getAllProduct);
 
 productRouter.post(
