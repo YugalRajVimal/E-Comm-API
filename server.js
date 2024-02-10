@@ -2,13 +2,17 @@
 import express from "express";
 import productRouter from "./src/features/product/product.routes.js";
 import bodyParser from "body-parser";
+import userRouter from "./src/features/user/user.routes.js";
+// import basicAuthorizer from "./src/middlewares/basicAuth.middleware.js";
+import jwtAuth from "./src/middlewares/jwt.middleware.js";
 
 //2. Create Server
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use("/api/products", productRouter);
+app.use("/api/products", jwtAuth, productRouter);
+app.use("/api/users/", userRouter);
 
 //3. Default request handler
 app.get("/", (req, res) => {
