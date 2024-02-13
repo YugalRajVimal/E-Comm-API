@@ -20,9 +20,11 @@ export default class UserController {
         userId: user.id,
         email: user.email,
       },
-      "8r9SfkmMCu",
+      "5sjykqMD5M",
       { expiresIn: "1h" }
     );
+
+    console.log(token);
 
     // Send Token
     res.status(200).send(token);

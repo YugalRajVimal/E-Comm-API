@@ -1,13 +1,13 @@
 Products Controller
-    getAllProduct
-    addProduct
-    getOneProduct
-    filterProduct
-    rateProduct
-    addItemsToCart
-    getItemsFromCart
-    removeItemFromCart
+    getAllProduct -
+    addProduct -
+    getOneProduct -
+    filterProduct -
+    rateProduct -
+    addItemsToCart -
+    getItemsFromCart -
+    removeItemFromCart -
 
 User Controller
-    SignUp(email, name, password, typeOfCustomer( customer / seller ))
-    SignIn(email, password)
+    SignUp(email, name, password, typeOfCustomer( customer / seller )) -
+    SignIn(email, password) -
