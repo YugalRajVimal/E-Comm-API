@@ -11,6 +11,7 @@ import jwtAuth from "./src/middlewares/jwt.middleware.js";
 import cartItemsRouter from "./src/features/cart/cartItems.routes.js";
 
 import apiDocs from "./swagger.json" assert { type: "json" };
+import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 
 //2. Create Server
 const app = express();
@@ -36,6 +37,8 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 // Bearer <token>
 app.use("/api-docs", swagger.serve, swagger.setup(apiDocs));
+
+app.use(loggerMiddleware);
 
 app.use("/api/products", jwtAuth, productRouter);
 app.use("/api/users/", userRouter);
