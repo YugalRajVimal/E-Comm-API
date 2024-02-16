@@ -1,4 +1,8 @@
 //1. Import Statements
+
+// Implement Validations (imp)
+// Complete swagger documentation
+
 import express from "express";
 import swagger from "swagger-ui-express";
 import cors from "cors";
@@ -12,6 +16,9 @@ import cartItemsRouter from "./src/features/cart/cartItems.routes.js";
 
 import apiDocs from "./swagger.json" assert { type: "json" };
 import loggerMiddleware from "./src/middlewares/logger.middleware.js";
+import { ApplicationError } from "./src/errorHandler/applicationErrorHandler.js";
+import { errorLogger } from "./src/middlewares/errorLogger.middleware.js";
+import connectToMongoDB from "./src/config/mongodb.js";
 
 //2. Create Server
 const app = express();
@@ -49,6 +56,20 @@ app.get("/", (req, res) => {
   res.send("<h1>Welcome</h1>");
 });
 
+// Setting up Application Level Error Handler Middleware
+app.use((err, req, res, next) => {
+  // User definded errors
+  if (err instanceof ApplicationError) {
+    return res.status(err.statusCode).send(err.message);
+  }
+  //Server Errors
+  // ToDo - Implement logs for these Errors
+  const errorLog =
+    `timestamp: ` + new Date() + ` request URL: ${req.url}, error: ${err}`;
+  errorLogger.error(errorLog);
+  res.status(500).send("Something went wrong, please try later");
+});
+
 //4. Middleware to handle 404 requests
 app.use((req, res) => {
   res
@@ -61,4 +82,5 @@ app.use((req, res) => {
 //5. Listening on port 8080
 app.listen(8080, () => {
   console.log("Server is running on Port 8080");
+  connectToMongoDB();
 });

@@ -31,7 +31,7 @@ export default class ProductController {
   filterProducts = (req, res) => {
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
-    const category = req.query.category;
+    const category = req.querys.category;
     const result = ProductModel.filter(minPrice, maxPrice, category);
 
     res.status(200).send(result);
@@ -39,10 +39,10 @@ export default class ProductController {
 
   rateProduct = (req, res) => {
     const { userId, productId, ratings } = req.query;
-    const error = ProductModel.rateProduct(userId, productId, ratings);
-
-    if (error) {
-      res.status(400).send(error);
+    try {
+      ProductModel.rateProduct(userId, productId, ratings);
+    } catch (error) {
+      return res.status(400).send(error.message);
     }
     res.status(200).send("Rating has been added");
   };
