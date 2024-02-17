@@ -10,8 +10,12 @@ const userController = new UserController();
 
 //ALl the paths to controller methods after (localhost:8080/api/products)
 
-userRouter.post("/signup", userController.signUp);
+userRouter.post("/signup", (req, res) => {
+  userController.signUp(req, res);
+});
 
-userRouter.post("/signin", userController.signIn);
+userRouter.post("/signin", (req, res) => {
+  userController.signIn(req, res);
+});
 
 export default userRouter;

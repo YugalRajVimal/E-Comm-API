@@ -1,32 +1,63 @@
+import { ApplicationError } from "../../errorHandler/applicationErrorHandler.js";
 import UserModel from "./user.model.js";
 import jwt from "jsonwebtoken";
+import UserRepository from "./user.repository.js";
+import bcrypt from "bcrypt";
 
 export default class UserController {
-  signUp(req, res) {
-    const { name, email, type, password } = req.body;
-    const newUser = UserModel.signUp(name, email, type, password);
-    res.status(201).send(newUser);
+  constructor() {
+    this.userRepository = new UserRepository();
   }
 
-  signIn(req, res) {
-    const { email, password } = req.body;
-    const user = UserModel.signIn(email, password);
-    if (!user) {
-      return res.status(400).send("Incorrect Credentials");
+  async signUp(req, res) {
+    try {
+      const { name, email, type, password } = req.body;
+
+      const hashedPassword = await bcrypt.hash(password, 12);
+
+      const newUser = new UserModel(name, email, type, hashedPassword);
+      await this.userRepository.signUp(newUser);
+      res.status(201).send(newUser);
+    } catch (error) {
+      console.log(error);
+      res.status(503).send("Something went wrong");
     }
-    // Create Token
-    const token = jwt.sign(
-      {
-        userId: user.id,
-        email: user.email,
-      },
-      "5sjykqMD5M",
-      { expiresIn: "1h" }
-    );
+  }
 
-    console.log(token);
+  async signIn(req, res) {
+    try {
+      // FInding user by email
+      const user = await this.userRepository.findByEmail(req.body.email);
 
-    // Send Token
-    res.status(200).send(token);
+      //Validating User
+      if (!user) {
+        return res.status(400).send("Incorrect Credentials");
+      } else {
+        //Compare password with hashedPassword
+        const matched = await bcrypt.compare(req.body.password, user.password);
+        //Password not matched
+        if (!matched) {
+          return res.status(400).send("Incorrect Credentials");
+        }
+      }
+
+      // Password matched and Creating Token
+      const token = jwt.sign(
+        {
+          userId: user._id,
+          email: user.email,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+
+      console.log(token);
+
+      // Send Token
+      res.status(200).send(token);
+    } catch (error) {
+      console.log(error);
+      res.status(503).send("Something went wrong");
+    }
   }
 }

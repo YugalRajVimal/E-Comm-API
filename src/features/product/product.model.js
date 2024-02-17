@@ -2,41 +2,14 @@ import { ApplicationError } from "../../errorHandler/applicationErrorHandler.js"
 import UserModel from "../user/user.model.js";
 
 export default class ProductModel {
-  constructor(id, name, desc, price, imageUrl, category, sizes) {
-    this.id = id;
+  constructor(name, desc, price, imageUrl, category, sizes, id) {
     this.name = name;
     this.desc = desc;
     this.price = price;
     this.imageUrl = imageUrl;
     this.category = category;
     this.sizes = sizes;
-  }
-
-  static get(id) {
-    const product = products.find((i) => i.id == id);
-    return product;
-  }
-
-  static addProduct(product) {
-    product.id = products.length + 1;
-    products.push(product);
-    return product;
-  }
-
-  static getAll() {
-    return products;
-  }
-
-  static filter(minPrice, maxPrice, category) {
-    const result = products.filter((product) => {
-      return (
-        (!minPrice || product.price >= minPrice) &&
-        (!maxPrice || product.price <= maxPrice) &&
-        (!category || product.category == category)
-      );
-    });
-
-    return result;
+    this._id = id;
   }
 
   static rateProduct(userId, productId, rating) {

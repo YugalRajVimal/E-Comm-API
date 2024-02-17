@@ -3,6 +3,7 @@
 // Implement Validations (imp)
 // Complete swagger documentation
 
+import "./env.js";
 import express from "express";
 import swagger from "swagger-ui-express";
 import cors from "cors";
@@ -18,7 +19,7 @@ import apiDocs from "./swagger.json" assert { type: "json" };
 import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 import { ApplicationError } from "./src/errorHandler/applicationErrorHandler.js";
 import { errorLogger } from "./src/middlewares/errorLogger.middleware.js";
-import connectToMongoDB from "./src/config/mongodb.js";
+import { connectToMongoDB } from "./src/config/mongodb.js";
 
 //2. Create Server
 const app = express();
