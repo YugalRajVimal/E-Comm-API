@@ -70,7 +70,7 @@ export default class ProductController {
 
   rateProduct = async (req, res) => {
     try {
-      const { productId, ratings } = req.query;
+      const { productId, ratings } = req.body;
       const userId = req.userId;
       await this.productRepository.rateProduct(userId, productId, ratings);
     } catch (error) {

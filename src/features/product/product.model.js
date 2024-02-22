@@ -11,45 +11,6 @@ export default class ProductModel {
     this.sizes = sizes;
     this._id = id;
   }
-
-  static rateProduct(userId, productId, rating) {
-    //Validate User
-    const user = UserModel.getAll().find((u) => u.id == userId);
-
-    if (!user) {
-      throw new ApplicationError("User not found", 400);
-    }
-
-    //Validate Product
-    const product = products.find((p) => p.id == productId);
-    if (!product) {
-      throw new ApplicationError("Prodcut not found", 400);
-    }
-
-    //Check if there are any ratings or not. If not then create a rating array.
-    if (!products.ratings) {
-      product.ratings = [];
-      product.ratings.push({
-        userId: userId,
-        rating: rating,
-      });
-    } else {
-      //Checking if this user already rated or not. If rated then update the old rating.
-      const existingRatingIndex = product.ratings.findIndex(
-        (r) => r.userId == userId
-      );
-
-      if (existingRatingIndex >= 0) {
-        product.rating[existingRatingIndex].rating = rating;
-      } else {
-        //If no existing rating then add new rating
-        product.ratings.push({
-          userId: userId,
-          rating: rating,
-        });
-      }
-    }
-  }
 }
 
 var products = [
