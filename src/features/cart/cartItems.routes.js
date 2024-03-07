@@ -8,8 +8,14 @@ import CartItemsController from "./cartItems.controller.js";
 const cartItemsRouter = express.Router();
 const cartItemsController = new CartItemsController();
 
-cartItemsRouter.post("/", cartItemsController.add);
-cartItemsRouter.get("/", cartItemsController.getAll);
-cartItemsRouter.delete("/:id", cartItemsController.delete);
+cartItemsRouter.post("/", (req, res, next) => {
+  cartItemsController.add(req, res, next);
+});
+cartItemsRouter.get("/", (req, res, next) => {
+  cartItemsController.getAll(req, res, next);
+});
+cartItemsRouter.delete("/:id", (req, res, next) => {
+  cartItemsController.delete(req, res, next);
+});
 
 export default cartItemsRouter;

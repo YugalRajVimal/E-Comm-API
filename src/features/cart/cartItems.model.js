@@ -3,30 +3,7 @@ export default class CartItemModel {
     this.productId = productId;
     this.userId = userId;
     this.quantity = quantity;
-    this.id = id;
-  }
-
-  static getAll(userId) {
-    const allCartItems = cartItems.filter((c) => c.userId == userId);
-    return allCartItems;
-  }
-
-  static add(productId, userId, quantity) {
-    const newCartItem = new CartItemModel(productId, userId, quantity);
-    newCartItem.id = cartItems.length + 1;
-    cartItems.push(newCartItem);
-    return newCartItem;
-  }
-
-  static delete(cartItemId, userId) {
-    const cartItemIndex = cartItems.findIndex(
-      (c) => c.id == cartItemId && c.userId == userId
-    );
-    if (cartItemIndex < 0) {
-      return "Cart Item not found";
-    } else {
-      cartItems.splice(cartItemIndex, 1);
-    }
+    this._id = id;
   }
 }
 

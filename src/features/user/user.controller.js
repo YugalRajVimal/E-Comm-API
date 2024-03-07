@@ -3,24 +3,55 @@ import UserModel from "./user.model.js";
 import jwt from "jsonwebtoken";
 import UserRepository from "./user.repository.js";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 export default class UserController {
   constructor() {
     this.userRepository = new UserRepository();
   }
 
-  async signUp(req, res) {
+  async resetPassword(req, res) {
     try {
-      const { name, email, type, password } = req.body;
+      const { email, password, newPassword } = req.body;
 
-      const hashedPassword = await bcrypt.hash(password, 12);
+      const user = await this.userRepository.findByEmail(email);
 
-      const newUser = new UserModel(name, email, type, hashedPassword);
-      await this.userRepository.signUp(newUser);
-      res.status(201).send(newUser);
+      //Validating User
+      if (!user) {
+        return res.status(400).send("Incorrect Credentials");
+      } else {
+        //Compare password with hashedPassword
+        const matched = await bcrypt.compare(password, user.password);
+        //Password not matched
+        if (!matched) {
+          return res.status(400).send("Incorrect Credentials");
+        }
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+      const updatedUser = await this.userRepository.resetPassword(
+        email,
+        hashedPassword
+      );
+      res.status(201).send(updatedUser);
     } catch (error) {
       console.log(error);
       res.status(503).send("Something went wrong");
+    }
+  }
+
+  async signUp(req, res, next) {
+    try {
+      const { name, email, type, password } = req.body;
+
+      // const hashedPassword = await bcrypt.hash(password, 12);
+
+      const newUser = new UserModel(name, email, type, password);
+      await this.userRepository.signUp(newUser);
+      res.status(201).send(newUser);
+    } catch (error) {
+      next(error);
     }
   }
 

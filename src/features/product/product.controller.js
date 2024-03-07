@@ -17,15 +17,15 @@ export default class ProductController {
 
   addProduct = async (req, res) => {
     try {
-      const { name, desc, price, category, sizes } = req.body;
+      const { name, desc, price, categories, sizes } = req.body;
 
       const newProduct = new ProductModel(
         name,
         desc,
         parseFloat(price),
-        req.file.filename,
-        category,
-        sizes.split(",")
+        req?.file?.filename,
+        categories,
+        sizes?.split(",")
       );
       await this.productRepository.add(newProduct);
       res.status(201).send(newProduct);
@@ -52,14 +52,8 @@ export default class ProductController {
   filterProducts = async (req, res) => {
     try {
       const minPrice = req.query.minPrice;
-      const maxPrice = req.query.maxPrice;
-      const category = req.query.category;
-      console.log(minPrice, maxPrice, category);
-      const result = await this.productRepository.filter(
-        minPrice,
-        maxPrice,
-        category
-      );
+      const categories = req.query.categories;
+      const result = await this.productRepository.filter(minPrice, categories);
 
       res.status(200).send(result);
     } catch (error) {
@@ -68,7 +62,7 @@ export default class ProductController {
     }
   };
 
-  rateProduct = async (req, res) => {
+  rateProduct = async (req, res, next) => {
     try {
       const { productId, ratings } = req.body;
       const userId = req.userId;
@@ -78,5 +72,15 @@ export default class ProductController {
       next(error);
     }
     res.status(200).send("Rating has been added");
+  };
+
+  avgPrice = async (req, res) => {
+    try {
+      const result = await this.productRepository.getAvgPricePerCategory();
+      res.status(200).send(result);
+    } catch {
+      console.log("Passing error to middleware");
+      next(error);
+    }
   };
 }

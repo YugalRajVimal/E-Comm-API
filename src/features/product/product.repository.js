@@ -1,141 +1,68 @@
+import mongoose from "mongoose";
+import { productSchema } from "./product.schema.js";
+import { reviewSchema } from "./review.schema.js";
 import { ObjectId } from "mongodb";
-import { getDB } from "../../config/mongodb.js";
+import { categorySchema } from "./category.schema.js";
 import { ApplicationError } from "../../errorHandler/applicationErrorHandler.js";
 
+const ProductModel = mongoose.model("Product", productSchema);
+const ReviewModel = mongoose.model("Review", reviewSchema);
+const CategoryModel = mongoose.model("Category", categorySchema);
+
 class ProductRepository {
-  constructor() {
-    this.collection = "products";
-  }
-  async add(newProduct) {
+  async add(productData) {
     try {
-      const db = getDB();
-      const collection = db.collection(this.collection);
-      await collection.insertOne(newProduct);
-      return;
+      //1. Add the product
+      console.log(productData);
+      productData.categories = productData.categories
+        .split(",")
+        .map((e) => e.trim());
+      const newProduct = new ProductModel(productData);
+      const savedProduct = await newProduct.save();
+
+      //2. Update the categories
+      await CategoryModel.updateMany(
+        { _id: { $in: productData.categories } },
+        { $push: { products: new ObjectId(savedProduct._id) } }
+      );
     } catch (error) {
       console.log(error);
       throw new ApplicationError("Something went wrong", 503);
     }
   }
-
-  async getAll() {
-    try {
-      const db = getDB();
-      const collection = db.collection(this.collection);
-      return await collection.find().toArray();
-    } catch (error) {
-      console.log(error);
-      throw new ApplicationError("Something went wrong", 503);
-    }
-  }
-
-  async get(id) {
-    try {
-      const db = getDB();
-      const collection = db.collection(this.collection);
-      return await collection.findOne({ _id: new ObjectId(id) });
-    } catch (error) {
-      console.log(error);
-      throw new ApplicationError("Something went wrong", 503);
-    }
-  }
-
-  async filter(minPrice, maxPrice, category) {
-    try {
-      const db = getDB();
-      const collection = db.collection(this.collection);
-      let filterExpression = {};
-      if (minPrice) {
-        filterExpression.price = { $gte: parseFloat(minPrice) };
-      }
-      if (maxPrice) {
-        filterExpression.price = {
-          ...filterExpression.price,
-          $lte: parseFloat(maxPrice),
-        };
-      }
-      if (category) {
-        filterExpression.category = category;
-      }
-      return await collection.find(filterExpression).toArray();
-    } catch (error) {
-      console.log(error);
-      throw new ApplicationError("Something went wrong", 503);
-    }
-  }
-
-  // async rateProduct(userId, productId, rating) {
-  //   try {
-  //     const db = getDB();
-  //     const collection = db.collection(this.collection);
-  //     //1. Find the product
-  //     const product = await collection.findOne({
-  //       _id: new ObjectId(productId),
-  //     });
-  //     //2. Find the rating
-  //     const userRating = await product?.ratings?.find(
-  //       (r) => r.userId == userId
-  //     );
-  //     if (userRating) {
-  //       //3. Update the rating
-  //       await collection.updateOne(
-  //         {
-  //           _id: new ObjectId(productId),
-  //           "ratings.userId": new ObjectId(userId),
-  //         },
-  //         {
-  //           $set: {
-  //             "ratings.$.rating": rating,
-  //           },
-  //         }
-  //       );
-  //     } else {
-  //       await collection.updateOne(
-  //         { _id: new ObjectId(productId) },
-  //         {
-  //           $push: {
-  //             ratings: {
-  //               userId: new ObjectId(userId),
-  //               rating,
-  //             },
-  //           },
-  //         }
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     throw new ApplicationError("Something went wrong", 503);
-  //   }
-  // }
 
   async rateProduct(userId, productId, rating) {
     try {
-      const db = getDB();
-      const collection = db.collection(this.collection);
-      //1. Remove existing entry
-      await collection.updateOne(
-        { _id: new ObjectId(productId) },
-        {
-          $pull: {
-            ratings: {
-              userId: new ObjectId(userId),
-            },
-          },
-        }
-      );
+      //1. Check if product exist
+      const productToUpdate = await ProductModel.findById({
+        _id: new ObjectId(productId),
+      });
+      console.log(productToUpdate);
+      if (!productToUpdate) {
+        throw new Error("Product Not Found");
+      }
+      //2. Find the existing review
+      const userReview = await ReviewModel.findOne({
+        product: new ObjectId(productId),
+        user: new ObjectId(userId),
+      });
+      let newReviewId;
 
-      //2. Add new entry
-      await collection.updateOne(
-        { _id: new ObjectId(productId) },
-        {
-          $push: {
-            ratings: {
-              userId: new ObjectId(userId),
-              rating,
-            },
-          },
-        }
-      );
+      if (userReview) {
+        userReview.rating = rating;
+        await userReview.save();
+      } else {
+        const newReview = new ReviewModel({
+          user: new ObjectId(userId),
+          product: new ObjectId(productId),
+          rating: rating,
+        });
+        await newReview.save();
+        newReviewId = newReview._id;
+        console.log(newReview);
+        productToUpdate.reviews.push(newReview._id);
+        productToUpdate.save();
+      }
     } catch (error) {
       console.log(error);
       throw new ApplicationError("Something went wrong", 503);

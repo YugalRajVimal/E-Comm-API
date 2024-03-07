@@ -1,50 +1,56 @@
+import mongoose from "mongoose";
+import { userScheme } from "./user.schema.js";
 import { ApplicationError } from "../../errorHandler/applicationErrorHandler.js";
-import { getDB } from "../../config/mongodb.js";
 
-class UserRepository {
-  constructor() {
-    this.collection = "users";
-  }
-  async signUp(newUser) {
+//Creating model from schema
+const UserModel = mongoose.model("User", userScheme);
+
+export default class UserRepository {
+  async resetPassword(email, hashedPassword) {
     try {
-      //1. Get the database
-      const db = getDB();
-      //2. Get the Collection
-      const collection = db.collection(this.collection);
-      //3. Insert the user document
-      await collection.insertOne(newUser);
-
-      return;
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { email },
+        { password: hashedPassword },
+        { new: true }
+      );
+      return updatedUser;
     } catch (error) {
+      console.log("Error in Reseting Password ", error);
       throw new ApplicationError("Something went wrong", 503);
+    }
+  }
+
+  async signUp(user) {
+    try {
+      //create instance of model.
+      const newUser = new UserModel(user);
+      await newUser.save();
+      return newUser;
+    } catch (error) {
+      if (error instanceof mongoose.Error.ValidationError) {
+        throw error;
+      } else {
+        console.log("Error in SignUp ", error);
+        throw new ApplicationError("Something went wrong", 503);
+      }
     }
   }
 
   async signIn(email, password) {
     try {
-      //1. Get the database
-      const db = getDB();
-      //2. Get the Collection
-      const collection = db.collection(this.collection);
-      //3. Find and Verify the user document
-      return await collection.findOne({ email, password });
+      return await UserModel.findOne({ email, password });
     } catch (error) {
+      console.log("Error in SignIn ", error);
       throw new ApplicationError("Something went wrong", 503);
     }
   }
 
   async findByEmail(email) {
     try {
-      //1. Get the database
-      const db = getDB();
-      //2. Get the Collection
-      const collection = db.collection(this.collection);
-      //3. Find and Verify the user document
-      return await collection.findOne({ email });
+      return await UserModel.findOne({ email });
     } catch (error) {
+      console.log("Error in finding User ", error);
       throw new ApplicationError("Something went wrong", 503);
     }
   }
 }
-
-export default UserRepository;

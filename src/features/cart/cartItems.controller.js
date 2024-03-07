@@ -1,26 +1,49 @@
+import { ObjectId } from "mongodb";
 import CartItemModel from "./cartItems.model.js";
+import CartItemsRepository from "./cartItems.repository.js";
 
 export default class CartItemsController {
-  add = (req, res) => {
-    const { productId, quantity } = req.body;
-    const userId = req.userId;
-    console.log(userId);
-    CartItemModel.add(productId, userId, quantity);
-    res.status(201).send("Item added to cart successfully");
-  };
+  constructor() {
+    this.cartItemsRepository = new CartItemsRepository();
+  }
 
-  getAll = (req, res) => {
-    const allCartItems = CartItemModel.getAll(req.userId);
-    return res.status(200).send(allCartItems);
-  };
-
-  delete = (req, res) => {
-    const userId = req.userId;
-    const cartItemId = req.params.id;
-    const error = CartItemModel.delete(cartItemId, userId);
-    if (error) {
-      return res.status(404).send(error);
+  add = async (req, res) => {
+    try {
+      const { productId, quantity } = req.body;
+      const userId = req.userId;
+      await this.cartItemsRepository.add(productId, userId, quantity);
+      res.status(201).send("Item added to cart successfully");
+    } catch (error) {
+      console.log(error);
+      res.status(503).send("Something went wrong");
     }
-    return res.status(200).send("Cart Item is removed");
+  };
+
+  getAll = async (req, res) => {
+    try {
+      const allCartItems = await this.cartItemsRepository.getAll(req.userId);
+      return res.status(200).send(allCartItems);
+    } catch (error) {
+      console.log(error);
+      res.status(503).send("Something went wrong");
+    }
+  };
+
+  delete = async (req, res) => {
+    try {
+      const userId = req.userId;
+      const cartItemId = req.params.id;
+      const isDeleted = await this.cartItemsRepository.delete(
+        cartItemId,
+        userId
+      );
+      if (!isDeleted) {
+        return res.status(404).send("Item not found");
+      }
+      return res.status(200).send("Cart Item is removed");
+    } catch (error) {
+      console.log(error);
+      res.status(503).send("Something went wrong");
+    }
   };
 }

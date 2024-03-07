@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 const jwtAuth = (req, res, next) => {
   //1. Read the token
   const token = req.headers["authorization"];
-  console.log(token);
+  // console.log(token);
 
   //2. If no token present then return the error
   if (!token) {
@@ -14,7 +14,7 @@ const jwtAuth = (req, res, next) => {
   try {
     const payload = jwt.verify(token, "5sjykqMD5M");
     req.userId = payload.userId;
-    console.log(payload);
+    // console.log(payload);
   } catch (error) {
     //5. If not valid then return error
     console.log(error);
