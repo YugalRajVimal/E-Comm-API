@@ -13,15 +13,15 @@ export const userScheme = new mongoose.Schema({
   },
   password: {
     type: String,
-    validate: {
-      validator: function (value) {
-        return /^(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/.test(value);
-      },
-      message:
-        "Password must be between 8 - 12 characters and have a special character",
-    },
+    // validate: {
+    //   validator: function (value) {
+    //     return /^(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/.test(value);
+    //   },
+    //   message:
+    //     "Password must be between 8 - 12 characters and have a special character",
+    // },
     minLength: [8, "Password must be atleast 8 character long"],
-    maxLength: [25, "Password cannot be greater than 25 characters"],
+    maxLength: [100, "Password cannot be greater than 100 characters"],
   },
   type: {
     type: String,

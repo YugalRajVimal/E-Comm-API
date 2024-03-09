@@ -6,10 +6,7 @@ const url = process.env.DB_URL;
 export const connectUsingMongoose = async () => {
   try {
     await mongoose
-      .connect(url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
+      .connect(url)
       .then(() => {
         console.log("Connected to DB using Mongoose");
         addCategory();
