@@ -169,7 +169,7 @@
                   "price": {
                     "type": "number"
                   },
-                  "category": {
+                  "categories": {
                     "type": "string"
                   },
                   "sizes": {
@@ -211,50 +211,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
-      "post": {
-        "tags": ["Products"],
-        "summary": "Add a Product",
-        "description": "User can add a product",
-        "security": [
-          {
-            "JWT": {}
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "desc": {
-                    "type": "string"
-                  },
-                  "price": {
-                    "type": "number"
-                  },
-                  "category": {
-                    "type": "string"
-                  },
-                  "sizes": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"

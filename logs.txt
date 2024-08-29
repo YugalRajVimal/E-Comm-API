@@ -66,3 +66,14 @@
 {"level":"info","message":"/api/products/filter?minPrice=0&categories=65e989cf4a573e11b6671dea - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/filter?minPrice=0&categories=65e989cf4a573e11b6671dea - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/filter?minPrice=0&categories=%2765e989cf4a573e11b6671dea%27 - {}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user1\",\"email\":\"user1@gmail.com\",\"type\":\"seller\",\"password\":\"u1\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Product 1\",\"desc\":\"Product 1 Description\",\"price\":400,\"category\":\"Cloths\",\"sizes\":\"M, L , XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Product 1\",\"desc\":\"Product 1 Description\",\"price\":400,\"category\":\"Cloths\",\"sizes\":\"M, L , XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Product 1\",\"desc\":\"Product 1 Description\",\"price\":400,\"category\":\"Cloths\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Product 1\",\"desc\":\"Product 1 Description\",\"price\":400,\"categories\":\"Cloths\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/66d0a706baab555889dde87f - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {\"ratings\":\"5\",\"productId\":\"66d0a706baab555889dde87f\"}","service":"request-logging"}
