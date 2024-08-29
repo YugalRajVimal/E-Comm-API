@@ -31,7 +31,7 @@ const app = express();
 
 // CORS policy configuration
 var corsOptions = {
-  origin: "http://localhost:5500",
+  origin: "*",
 };
 app.use(cors(corsOptions));
 
