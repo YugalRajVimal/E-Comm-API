@@ -1,0 +1,68 @@
+{"level":"info","message":"/ - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {}","service":"request-logging"}
+{"level":"info","message":"/api/users - {\"name\":\"user2\",\"email\":\"user2@gmail.com\",\"type\":\"seller\",\"password\":\"User2#$\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user2\",\"email\":\"user2@gmail.com\",\"type\":\"seller\",\"password\":\"User2#$\"}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user2\",\"email\":\"user2@gmail.com\",\"type\":\"seller\",\"password\":\"User2#$\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user2\",\"email\":\"user2@gmail.com\",\"type\":\"seller\",\"password\":\"User2#$\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user2\",\"email\":\"user2@gmail.com\",\"type\":\"seller\",\"password\":\"User2#$\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user2\",\"email\":\"user2@gmail.com\",\"type\":\"seller\",\"password\":\"User2#$\"}","service":"request-logging"}
+{"level":"info","message":"/ - {}","service":"request-logging"}
+{"level":"info","message":"/ - {}","service":"request-logging"}
+{"level":"info","message":"/favicon.ico - {}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user3\",\"email\":\"user3@gmail.com\",\"type\":\"seller\",\"password\":\"u3\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user3\",\"email\":\"user3@gmail.com\",\"type\":\"seller\",\"password\":\"u3\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/users/resetPassword - {\"email\":\"user3@gmail.com\",\"password\":\"u3\",\"newPassword\":\"U3\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/resetPassword - {\"email\":\"user3@gmail.com\",\"password\":\"U3\",\"newPassword\":\"u3\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user4\",\"email\":\"user4@gmail.com\",\"type\":\"seller\",\"password\":\"u4\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/users/resetPassword - {\"email\":\"user4@gmail.com\",\"password\":\"u4\",\"newPassword\":\"U4\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/resetPassword - {\"email\":\"user4@gmail.com\",\"password\":\"U4\",\"newPassword\":\"u4\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Cargo Pants\",\"desc\":\"Comfortable pants with mutiple Pockets\",\"price\":800,\"categories\":\"Cloths\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Cargo Pants\",\"desc\":\"Comfortable pants with mutiple Pockets\",\"price\":800,\"category\":\"Cloths\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Cargo Pants\",\"desc\":\"Comfortable pants with mutiple Pockets\",\"price\":800,\"category\":\"Cloths\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Cargo Pants\",\"desc\":\"Comfortable pants with mutiple Pockets\",\"price\":800,\"category\":\"Cloths\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Cargo Pants\",\"desc\":\"Comfortable pants with mutiple Pockets\",\"price\":800,\"categories\":\"Cloths,\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Cargo Pants\",\"desc\":\"Comfortable pants with mutiple Pockets\",\"price\":800,\"categories\":\"Cloths\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Cargo Pants\",\"desc\":\"Comfortable pants with mutiple Pockets\",\"price\":800,\"categories\":\"65e989cf4a573e11b6671dea\",\"sizes\":\"M,L,XL\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Formal Pants\",\"desc\":\"Pants for Office Use\",\"price\":600,\"categories\":\"Cloths\",\"sizes\":\"M,L\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Formal Pants\",\"desc\":\"Pants for Office Use\",\"price\":600,\"categories\":\"Cloths\",\"sizes\":\"M,L\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Formal Pants\",\"desc\":\"Pants for Office Use\",\"price\":600,\"categories\":\"Cloths\",\"sizes\":\"M,L\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops, Electronics\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops, Electronics\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops, Electronics\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops, Electronics\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops, Electronics\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops, Electronics\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops, Electronics\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1 8/256\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Laptops, Electronics\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {\"ratings\":\"5\",\"productId\":\"66d0921ec6a310da6e3d4eef\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1\",\"desc\":\"Apple Laptops\",\"price\":75000,\"category\":\"Electronics, Laptops\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"Apple Macbook Air M1\",\"desc\":\"Apple Laptops\",\"price\":75000,\"categories\":\"Electronics, Laptops\",\"sizes\":\"13inch\"}","service":"request-logging"}
+{"level":"info","message":"/api/products/66d0a706baab555889dde87f - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/66d0a706baab555889dde87f - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/66d0658c1c88d000e92b09ab - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=500 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=500 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=500 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=500 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=500 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=800 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=801 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?categories=Cloths - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?categories=Cloths - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?categories=65e989cf4a573e11b6671dea - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?categories=65e989cf4a573e11b6671dea - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=0&categories=65e989cf4a573e11b6671dea - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=0&categories=65e989cf4a573e11b6671dea - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=0&categories=%2765e989cf4a573e11b6671dea%27 - {}","service":"request-logging"}

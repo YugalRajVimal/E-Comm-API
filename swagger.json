@@ -20,6 +20,44 @@
     }
   },
   "paths": {
+    "/api/users/signup": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "SignUp",
+        "description": "User SignUp to Create Account",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Incorrect Credentials"
+          }
+        }
+      }
+    },
     "/api/users/signin": {
       "post": {
         "tags": ["Users"],
@@ -52,16 +90,208 @@
         }
       }
     },
+    "/api/users/resetPassword": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Reset Password",
+        "description": "Reset User Password using Email and Old Password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "newPassword": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Incorrect Credentials"
+          }
+        }
+      }
+    },
+
     "/api/products": {
       "get": {
         "tags": ["Products"],
-        "summary": "Get Products",
+        "summary": "Get All Products",
         "description": "User will get all products",
         "security": [
           {
             "JWT": {}
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Products"],
+        "summary": "Add a Product",
+        "description": "User can add a product",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "desc": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "sizes": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get a Product by id",
+        "description": "Retrieve a specific product by its unique ID.",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the product to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Products"],
+        "summary": "Add a Product",
+        "description": "User can add a product",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "desc": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "sizes": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/products/rateproduct":{
+      "post": {
+        "tags": ["Products"],
+        "summary": "Rate a Product",
+        "description": "User can rate a product",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ratings": {
+                    "type": "string"
+                  },
+                  "productId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"

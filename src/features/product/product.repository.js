@@ -10,17 +10,53 @@ const ReviewModel = mongoose.model("Review", reviewSchema);
 const CategoryModel = mongoose.model("Category", categorySchema);
 
 class ProductRepository {
+  async getAll() {
+    try {
+      const products = await ProductModel.find();
+      return products;
+    } catch (error) {
+      console.log(error);
+      throw new ApplicationError("Something went wrong", 503);
+    }
+  }
+
+  async get(id) {
+    try {
+      const product = await ProductModel.findById(id);
+      return product;
+    } catch (error) {
+      console.log(error);
+      throw new ApplicationError("Something went wrong", 503);
+    }
+  }
+
   async add(productData) {
     try {
-      //1. Add the product
-      console.log(productData);
+      //1.Separating categories from String to array elements
       productData.categories = productData.categories
         .split(",")
         .map((e) => e.trim());
+
+      //2. Check if the categories exist, if not create them
+      for (const categoryName of productData.categories) {
+        let category = await CategoryModel.findOne({ name: categoryName });
+        if (!category) {
+          category = new CategoryModel({ name: categoryName, products: [] });
+          await category.save();
+        }
+      }
+
+      //3. Convert Category Names to IDs
+      const categories = await CategoryModel.find({
+        name: { $in: productData.categories },
+      });
+      productData.categories = categories.map((category) => category._id);
+
+      //4. Save the product
       const newProduct = new ProductModel(productData);
       const savedProduct = await newProduct.save();
 
-      //2. Update the categories
+      //5. Update the categories
       await CategoryModel.updateMany(
         { _id: { $in: productData.categories } },
         { $push: { products: new ObjectId(savedProduct._id) } }

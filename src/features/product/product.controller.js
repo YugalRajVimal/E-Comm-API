@@ -27,6 +27,7 @@ export default class ProductController {
         categories,
         sizes?.split(",")
       );
+      newProduct.user = req.userId;
       await this.productRepository.add(newProduct);
       res.status(201).send(newProduct);
     } catch (error) {
@@ -66,6 +67,7 @@ export default class ProductController {
     try {
       const { productId, ratings } = req.body;
       const userId = req.userId;
+      
       await this.productRepository.rateProduct(userId, productId, ratings);
     } catch (error) {
       console.log("Passing error to middleware");
