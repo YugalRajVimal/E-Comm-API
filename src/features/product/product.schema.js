@@ -4,8 +4,8 @@ export const productSchema = new mongoose.Schema({
   name: String,
   desc: String,
   price: Number,
-  imageUrl: String,
   inStock: Number,
+  sizes: [String],
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,

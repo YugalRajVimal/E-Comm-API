@@ -17,17 +17,21 @@ export default class ProductController {
 
   addProduct = async (req, res) => {
     try {
-      const { name, desc, price, categories, sizes } = req.body;
+      const { name, desc, price, categories, inStock , sizes } = req.body;
+
+      // Ensure categories and sizes are arrays
+    const categoryArray = categories.split(",").map((e) => e.trim());
+    const sizeArray = sizes.split(",").map((e) => e.trim());
 
       const newProduct = new ProductModel(
         name,
         desc,
         parseFloat(price),
-        req?.file?.filename,
-        categories,
-        sizes?.split(",")
-      );
-      newProduct.user = req.userId;
+        categoryArray,
+        inStock,
+        sizeArray,
+        req.userId
+    );
       await this.productRepository.add(newProduct);
       res.status(201).send(newProduct);
     } catch (error) {
@@ -76,13 +80,4 @@ export default class ProductController {
     res.status(200).send("Rating has been added");
   };
 
-  avgPrice = async (req, res) => {
-    try {
-      const result = await this.productRepository.getAvgPricePerCategory();
-      res.status(200).send(result);
-    } catch {
-      console.log("Passing error to middleware");
-      next(error);
-    }
-  };
 }

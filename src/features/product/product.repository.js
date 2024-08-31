@@ -32,11 +32,6 @@ class ProductRepository {
 
   async add(productData) {
     try {
-      //1.Separating categories from String to array elements
-      productData.categories = productData.categories
-        .split(",")
-        .map((e) => e.trim());
-
       //2. Check if the categories exist, if not create them
       for (const categoryName of productData.categories) {
         let category = await CategoryModel.findOne({ name: categoryName });
@@ -99,6 +94,37 @@ class ProductRepository {
         productToUpdate.reviews.push(newReview._id);
         productToUpdate.save();
       }
+    } catch (error) {
+      console.log(error);
+      throw new ApplicationError("Something went wrong", 503);
+    }
+  }
+
+  async filter(minPrice, categories) {
+    try {
+      let filterExpression = {};
+
+      if (minPrice) {
+        filterExpression.price = { $gte: parseFloat(minPrice) };
+      }
+
+      if (categories) {
+        const categoriesArray = categories
+          .split(",")
+          .map((e) => e.trim().replace(/'/g, "")); // Remove any surrounding quotes and trim
+  
+        if (categoriesArray.length > 0) {
+          filterExpression.categories = { $in: categoriesArray };
+        }
+      }
+
+      const products = await ProductModel.find(filterExpression).select({
+        _id: 0,
+        name: 1,
+        price: 1,
+      });
+
+      return products;
     } catch (error) {
       console.log(error);
       throw new ApplicationError("Something went wrong", 503);

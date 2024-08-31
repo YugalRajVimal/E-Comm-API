@@ -11,8 +11,8 @@ const cartItemsController = new CartItemsController();
 cartItemsRouter.post("/", (req, res, next) => {
   cartItemsController.add(req, res, next);
 });
-cartItemsRouter.get("/", (req, res, next) => {
-  cartItemsController.getAll(req, res, next);
+cartItemsRouter.get("/", (req, res) => {
+  cartItemsController.getAll(req, res);
 });
 cartItemsRouter.delete("/:id", (req, res, next) => {
   cartItemsController.delete(req, res, next);

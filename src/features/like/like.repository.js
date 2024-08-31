@@ -34,11 +34,11 @@ export class LikeRepository {
     }
   }
 
-  async getLikes(userId, id, type) {
+  async getLikes(userId, typeId, type) {
     try {
       const likedItems = await LikeModel.find({
         user: new ObjectId(userId),
-        likeable: new ObjectId(id),
+        likeable: new ObjectId(typeId),
         types: type,
       })
         .populate("user")

@@ -172,6 +172,9 @@
                   "categories": {
                     "type": "string"
                   },
+                  "inStock": {
+                    "type": "number"
+                  },
                   "sizes": {
                     "type": "string"
                   }
@@ -221,7 +224,7 @@
         }
       }
     },
-    "/api/products/rateproduct":{
+    "/api/products/rateproduct": {
       "post": {
         "tags": ["Products"],
         "summary": "Rate a Product",
@@ -242,6 +245,211 @@
                   },
                   "productId": {
                     "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/products/filter":{
+      "get": {
+        "tags": ["Products"],
+        "summary": "Filter Producta",
+        "description": "User can filter product using minimum Price and Categories",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "minPrice",
+            "in": "query",
+            "required": true,
+            "description": "Minimum Price of the product",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "required": true,
+            "description": "Id of Categories of the product seperated by comma(,) in string format",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+
+    "/api/cartItems/":{
+      "get": {
+        "tags": ["Cart"],
+        "summary": "Get CartItems of User",
+        "description": "User will get all cart items",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Cart"],
+        "summary": "Add Product to Cart with quantity",
+        "description": "User can add product to cart with quantity",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "requestBody":{
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/cartItems/{id}":{
+      "delete": {
+        "tags": ["Cart"],
+        "summary": "Delete CartItem using CartItem's Id",
+        "description": "User can delete cart item using cart item's id",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the cart item to delete",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+
+    "/api/likes/":{
+      "get": {
+        "tags": ["Like"],
+        "summary": "Get All Likes",
+        "description": "User will get all likes",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "typeId",
+            "in": "query",
+            "required": true,
+            "description": "ID of the product/category to like",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "description": "Type - (Product/Category)",
+            "schema": {
+              "type": "string",
+              "enum": ["Product", "Category"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Like"],
+        "summary": "Like to Product",
+        "description": "User can like a product",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "requestBody":{
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "typeId": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["Product", "Category"]
                   }
                 }
               }

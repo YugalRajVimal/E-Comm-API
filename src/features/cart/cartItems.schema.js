@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 export const cartItemsSchema = new mongoose.Schema({

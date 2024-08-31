@@ -1,58 +1,87 @@
-import { ObjectId } from "mongodb";
-import { getDB } from "../../config/mongodb.js";
+import mongoose from "mongoose";
+import { cartItemsSchema } from "./cartItems.schema.js";
 import { ApplicationError } from "../../errorHandler/applicationErrorHandler.js";
 
+//Creating model from schema
+const CartItemModel = mongoose.model("Cart", cartItemsSchema);
+
 export default class CartItemsRepository {
-  constructor() {
-    this.collection = "cartItems";
-  }
+  
+//   async add(productId, userId, quantity) {
+//     try {
+//       const db = getDB();
+//       const collection = db.collection(this.collection);
+//       const id = await this.getNextCounter(db);
+//       await collection.updateOne(
+//         { productId: new ObjectId(productId), userId: new ObjectId(userId) },
+//         {
+//           $setOnInsert: { _id: id },
+//           $inc: {
+//             quantity: quantity,
+//           },
+//         },
+//         { upsert: true }
+//       );
+//     } catch (error) {
+//       console.log(error);
+//       throw new ApplicationError("Something went wrong", 503);
+//     }
+//   }
 
-  async add(productId, userId, quantity) {
-    try {
-      const db = getDB();
-      const collection = db.collection(this.collection);
-      const id = await this.getNextCounter(db);
-      await collection.updateOne(
-        { productId: new ObjectId(productId), userId: new ObjectId(userId) },
-        {
-          $setOnInsert: { _id: id },
-          $inc: {
-            quantity: quantity,
-          },
-        },
-        { upsert: true }
-      );
-    } catch (error) {
-      console.log(error);
-      throw new ApplicationError("Something went wrong", 503);
+    async add(productId, userId, quantity) {
+        try {
+        // Check if the cart item already exists
+        const existingCartItem = await CartItemModel.findOne({
+            productId:new mongoose.Types.ObjectId(productId),
+            userId:new mongoose.Types.ObjectId(userId),
+        });
+    
+        if (existingCartItem) {
+            // If it exists, increment the quantity
+            existingCartItem.quantity += quantity;
+            await existingCartItem.save();
+        } else {
+            // If it doesn't exist, create a new cart item
+            const newCartItem = new CartItemModel({
+            productId:new mongoose.Types.ObjectId(productId),
+            userId:new mongoose.Types.ObjectId(userId),
+            quantity,
+            });
+            await newCartItem.save();
+        }
+        } catch (error) {
+        console.log(error);
+        throw new ApplicationError("Something went wrong", 503);
+        }
     }
-  }
+  
+    async getAll(userId) {
+        try {
+            // Find all cart items for the user
+            const cartItems = await CartItemModel.find({
+            userId:new mongoose.Types.ObjectId(userId),
+            });
+            return cartItems;
+        } catch (error) {
+            console.log(error);
+            throw new ApplicationError("Something went wrong", 503);
+        }
+    }
+  
 
-  async getAll(userId) {
-    try {
-      const db = getDB();
-      const collection = db.collection(this.collection);
-      return await collection.find({ userId: new ObjectId(userId) }).toArray();
-    } catch (error) {
-      console.log(error);
-      throw new ApplicationError("Something went wrong", 503);
+    async delete(cartItemId, userId) {
+        try {
+          const result = await CartItemModel.deleteOne({
+            _id:new mongoose.Types.ObjectId(cartItemId),
+            userId:new mongoose.Types.ObjectId(userId),
+          });
+          return result.deletedCount > 0;
+        } catch (error) {
+          console.log(error);
+          throw new ApplicationError("Something went wrong", 503);
+        }
     }
-  }
-
-  async delete(cartItemId, userId) {
-    try {
-      const db = getDB();
-      const collection = db.collection(this.collection);
-      const result = await collection.deleteOne({
-        _id: new ObjectId(cartItemId),
-        userId: new ObjectId(userId),
-      });
-      return result.deletedCount > 0;
-    } catch (error) {
-      console.log(error);
-      throw new ApplicationError("Something went wrong", 503);
-    }
-  }
+      
 
   async getNextCounter(db) {
     const resultDocument = await db.collection("counters").findOneAndUpdate(
