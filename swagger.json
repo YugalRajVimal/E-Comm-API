@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "description": "API for E-Commerce Application",
+    "description": "API for E-Commerce Application | Only Use in Chrome browser on Laptop/PC",
     "title": "E-Commerce API "
   },
   "servers": [
