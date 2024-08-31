@@ -41,17 +41,17 @@ app.use(cors(corsOptions));
 
 app.options('*', cors(corsOptions));
 
-// app.use((req, res, next) => {
-//   // * for giving access to all the web clients/headers and mention url for specific clients or header names
-//   res.header("Access-Control-Allow-Origin", "http://localhost:5500");
-//   res.header("Access-Control-Allow-Headers", "*");
-//   res.header("Access-Control-Allow-Methods", "*");
-//   //return ok status (200) for preflight request
-//   if (req.method == "OPTIONS") {
-//     return res.sendStatus(200);
-//   }
-//   next();
-// });
+app.use((req, res, next) => {
+  // * for giving access to all the web clients/headers and mention url for specific clients or header names
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  //return ok status (200) for preflight request
+  if (req.method == "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 app.use(bodyParser.json());
 // Bearer <token>
