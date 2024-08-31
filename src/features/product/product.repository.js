@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import { productSchema } from "./product.schema.js";
 import { reviewSchema } from "./review.schema.js";
 import { ObjectId } from "mongodb";
-import { categorySchema } from "./category.schema.js";
+import { CategoryModel } from "../category/category.schema.js";
 import { ApplicationError } from "../../errorHandler/applicationErrorHandler.js";
 
 const ProductModel = mongoose.model("Product", productSchema);
 const ReviewModel = mongoose.model("Review", reviewSchema);
-const CategoryModel = mongoose.model("Category", categorySchema);
+
 
 class ProductRepository {
   async getAll() {

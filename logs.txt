@@ -145,3 +145,16 @@
 {"level":"info","message":"/api/likes/?typeId=66d087f26b425426be9d3690&type=Category - {}","service":"request-logging"}
 {"level":"info","message":"/api/products - {}","service":"request-logging"}
 {"level":"info","message":"/api/likes/?typeId=66d0a706baab555889dde87f&type=Product - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {\"ratings\":5,\"productId\":\"66d0a706baab555889dde87f\"}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {\"ratings\":6,\"productId\":\"66d0a706baab555889dde87f\"}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {\"ratings\":9,\"productId\":\"66d0a706baab555889dde87f\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rateproduct - {\"ratings\":10,\"productId\":\"66d0a706baab555889dde87f\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"IPhone\",\"desc\":\"Apple Mobile\",\"price\":100000,\"categories\":\"Phone, Electronics\",\"inStock\":15,\"sizes\":\"8-128\"}","service":"request-logging"}
+{"level":"info","message":"/api/products - {\"name\":\"IPhone\",\"desc\":\"Apple Mobile\",\"price\":100000,\"categories\":\"Phone, Electronics\",\"inStock\":15,\"sizes\":\"8-128\"}","service":"request-logging"}
+{"level":"info","message":"/api/categories/ - {}","service":"request-logging"}
+{"level":"info","message":"/api/categories/ - {}","service":"request-logging"}

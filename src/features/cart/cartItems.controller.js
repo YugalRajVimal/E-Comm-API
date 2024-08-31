@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-import CartItemModel from "./cartItems.model.js";
 import CartItemsRepository from "./cartItems.repository.js";
 
 export default class CartItemsController {

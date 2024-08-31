@@ -6,27 +6,6 @@ import { ApplicationError } from "../../errorHandler/applicationErrorHandler.js"
 const CartItemModel = mongoose.model("Cart", cartItemsSchema);
 
 export default class CartItemsRepository {
-  
-//   async add(productId, userId, quantity) {
-//     try {
-//       const db = getDB();
-//       const collection = db.collection(this.collection);
-//       const id = await this.getNextCounter(db);
-//       await collection.updateOne(
-//         { productId: new ObjectId(productId), userId: new ObjectId(userId) },
-//         {
-//           $setOnInsert: { _id: id },
-//           $inc: {
-//             quantity: quantity,
-//           },
-//         },
-//         { upsert: true }
-//       );
-//     } catch (error) {
-//       console.log(error);
-//       throw new ApplicationError("Something went wrong", 503);
-//     }
-//   }
 
     async add(productId, userId, quantity) {
         try {

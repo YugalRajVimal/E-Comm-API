@@ -227,8 +227,8 @@
     "/api/products/rateproduct": {
       "post": {
         "tags": ["Products"],
-        "summary": "Rate a Product",
-        "description": "User can rate a product",
+        "summary": "Rate a Product between 1 to 5",
+        "description": "User can rate a product between 1 to 5",
         "security": [
           {
             "JWT": {}
@@ -241,7 +241,9 @@
                 "type": "object",
                 "properties": {
                   "ratings": {
-                    "type": "string"
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 5
                   },
                   "productId": {
                     "type": "string"
@@ -465,6 +467,28 @@
           }
         }
       }
+    },
+
+    "/api/categories/":{
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get All Categories",
+        "description": "User will get all categories",
+        "security": [
+          {
+            "JWT": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
     }
+
   }
 }
