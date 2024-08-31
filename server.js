@@ -11,7 +11,6 @@ import bodyParser from "body-parser";
 
 import productRouter from "./src/features/product/product.routes.js";
 import userRouter from "./src/features/user/user.routes.js";
-// import basicAuthorizer from "./src/middlewares/basicAuth.middleware.js";
 import jwtAuth from "./src/middlewares/jwt.middleware.js";
 import cartItemsRouter from "./src/features/cart/cartItems.routes.js";
 
@@ -20,7 +19,6 @@ import apiDocs from "./swagger.json" assert { type: "json" };
 import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 import { ApplicationError } from "./src/errorHandler/applicationErrorHandler.js";
 import { errorLogger } from "./src/middlewares/errorLogger.middleware.js";
-import { connectToMongoDB } from "./src/config/mongodb.js";
 import orderRouter from "./src/features/order/order.routes.js";
 import { connectUsingMongoose } from "./src/config/mongooseConfig.js";
 import mongoose from "mongoose";
@@ -31,8 +29,12 @@ import categoryRouter from "./src/features/category/category.routes.js";
 const app = express();
 
 // CORS policy configuration
-var corsOptions = {
-  origin: "*",
+const corsOptions = {
+  origin: "*", // Allow only this origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  credentials: true, // Allow credentials like cookies
+  optionsSuccessStatus: 200, // For legacy browsers support
 };
 app.use(cors(corsOptions));
 
@@ -59,7 +61,7 @@ app.use("/api/users/", userRouter);
 app.use("/api/cartItems/", jwtAuth, cartItemsRouter);
 app.use("/api/orders/", jwtAuth, orderRouter);
 app.use("/api/likes/", jwtAuth, likeRouter);
-app.use('/api/categories/', jwtAuth, categoryRouter);
+app.use("/api/categories/", jwtAuth, categoryRouter);
 
 //3. Default request handler
 app.get("/", (req, res) => {
