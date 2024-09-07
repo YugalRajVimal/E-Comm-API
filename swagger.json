@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "description": "API for E-Commerce Application | Only Use in Chrome browser on Laptop/PC",
+    "description": "API for E-Commerce Application | Use in Chrome browser on Laptop/PC for better experience",
     "title": "E-Commerce API "
   },
   "servers": [
@@ -24,7 +24,7 @@
       "post": {
         "tags": ["Users"],
         "summary": "SignUp",
-        "description": "User SignUp to Create Account",
+        "description": "User SignUp to Create Account | Type - (Seller/Customer)",
         "requestBody": {
           "content": {
             "application/json": {
@@ -38,7 +38,8 @@
                     "type": "string"
                   },
                   "type": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": ["Seller", "Customer"]
                   },
                   "password": {
                     "type": "string"
@@ -263,7 +264,7 @@
         }
       }
     },
-    "/api/products/filter":{
+    "/api/products/filter": {
       "get": {
         "tags": ["Products"],
         "summary": "Filter Producta",
@@ -304,7 +305,7 @@
       }
     },
 
-    "/api/cartItems/":{
+    "/api/cartItems/": {
       "get": {
         "tags": ["Cart"],
         "summary": "Get CartItems of User",
@@ -332,7 +333,7 @@
             "JWT": {}
           }
         ],
-        "requestBody":{
+        "requestBody": {
           "content": {
             "application/json": {
               "schema": {
@@ -359,7 +360,7 @@
         }
       }
     },
-    "/api/cartItems/{id}":{
+    "/api/cartItems/{id}": {
       "delete": {
         "tags": ["Cart"],
         "summary": "Delete CartItem using CartItem's Id",
@@ -391,7 +392,7 @@
       }
     },
 
-    "/api/likes/":{
+    "/api/likes/": {
       "get": {
         "tags": ["Like"],
         "summary": "Get All Likes",
@@ -440,7 +441,7 @@
             "JWT": {}
           }
         ],
-        "requestBody":{
+        "requestBody": {
           "content": {
             "application/json": {
               "schema": {
@@ -469,7 +470,7 @@
       }
     },
 
-    "/api/categories/":{
+    "/api/categories/": {
       "get": {
         "tags": ["Categories"],
         "summary": "Get All Categories",
@@ -489,6 +490,5 @@
         }
       }
     }
-
   }
 }
