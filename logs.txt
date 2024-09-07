@@ -1,0 +1,4 @@
+{"level":"info","message":"/api/user/auth - {}","service":"request-logging"}
+{"level":"info","message":"/ - {}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user4\",\"email\":\"user4@gmail.com\",\"type\":\"seller\",\"password\":\"u4\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"user5\",\"email\":\"user5@gmail.com\",\"type\":\"seller\",\"password\":\"u5\"}","service":"request-logging"}
